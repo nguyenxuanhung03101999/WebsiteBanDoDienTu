@@ -84,10 +84,17 @@ class OrderItem(models.Model):
         return self.quantity * self.item.price
 
     def get_total_discount_item_price(self):
-        return self.quantity * self.item.discount_price
+        total_discount_item_price = round(float(self.quantity * self.item.discount_price), 2)
+        return total_discount_item_price
+
 
     def get_amount_saved(self):
-        return self.get_total_item_price() - self.get_total_discount_item_price()
+        amount_saved = round(float(self.get_total_item_price() - self.get_total_discount_item_price()), 2)
+        return amount_saved
+
+    # def currency(dollars):
+    #     dollars = round(float(dollars), 2)
+    #     return "$%s%s" % (intcomma(int(dollars)), ("%0.2f" % dollars)[-3:])
 
     def get_final_price(self):
         if self.item.discount_price:
@@ -115,17 +122,6 @@ class Order(models.Model):
     received = models.BooleanField(default=False)
     refund_requested = models.BooleanField(default=False)
     refund_granted = models.BooleanField(default=False)
-
-    '''
-    1. Item added to cart
-    2. Adding a billing address
-    (Failed checkout)
-    3. Payment
-    (Preprocessing, processing, packaging etc.)
-    4. Being delivered
-    5. Received
-    6. Refunds
-    '''
 
     def __str__(self):
         return self.user.username

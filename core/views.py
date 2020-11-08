@@ -1,6 +1,5 @@
 import random
 import string
-
 import stripe
 from django.conf import settings
 from django.contrib import messages
@@ -11,7 +10,6 @@ from django.shortcuts import redirect
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from django.views.generic import ListView, DetailView, View
-
 from .forms import CheckoutForm, CouponForm, RefundForm, PaymentForm
 from .models import Item, OrderItem, Order, Address, Payment, Coupon, Refund, UserProfile
 
@@ -267,14 +265,14 @@ class PaymentView(View):
                     # charge the customer because we cannot charge the token more than once
                     charge = stripe.Charge.create(
                         amount=amount,  # cents
-                        currency="usd",
+                        currency="USA",
                         customer=userprofile.stripe_customer_id
                     )
                 else:
                     # charge once off on the token
                     charge = stripe.Charge.create(
                         amount=amount,  # cents
-                        currency="usd",
+                        currency="USA",
                         source=token
                     )
 
@@ -347,7 +345,7 @@ class PaymentView(View):
 
 class HomeView(ListView):
     model = Item
-    paginate_by = 10
+    paginate_by = 8
     template_name = "home.html"
 
 
