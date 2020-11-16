@@ -62,8 +62,10 @@ class Migration(migrations.Migration):
                 ('received', models.BooleanField(default=False)),
                 ('refund_requested', models.BooleanField(default=False)),
                 ('refund_granted', models.BooleanField(default=False)),
-                ('billing_address', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='billing_address', to='core.Address')),
-                ('coupon', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='core.Coupon')),
+                ('billing_address', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL,
+                                                      related_name='billing_address', to='core.Address')),
+                ('coupon', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL,
+                                             to='core.Coupon')),
             ],
         ),
         migrations.CreateModel(
@@ -83,7 +85,8 @@ class Migration(migrations.Migration):
                 ('stripe_charge_id', models.CharField(max_length=50)),
                 ('amount', models.FloatField()),
                 ('timestamp', models.DateTimeField(auto_now_add=True)),
-                ('user', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
+                ('user', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL,
+                                           to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.CreateModel(
